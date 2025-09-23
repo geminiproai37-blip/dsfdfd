@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cargando...</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <script type="module">
+      // Define configuration variables to be injected into the HTML content
+      const theme = "${theme}";
+      const GOOGLE_API_KEY = "${GOOGLE_API_KEY}";
+
+      const indexHtmlContent = `
+        <!DOCTYPE html>
+        <html lang="es" data-theme="${theme}">
+        <head>
+            <meta charset="UTF-8" />
+            <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no"
+            />
+            <title>Reproductor de Video</title>
+
+            <!-- Theme Loader Script -->
+            <script defer>
+            // Función para obtener parámetros de la URL
+            function getUrlParameter(name) {
+                // Correctly escape brackets for use in a RegExp
+                name = name.replace(/[\\[]/, '\\\\[').replace(/[\\]]/, '\\\\]');
+                var regex = new RegExp('[\\\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(location.search);
+                return results === null
+                ? ''
+                : decodeURIComponent(results[1].replace(/\\+/g, ' '));
+            }
+
+            // Obtener el parámetro 'theme' de la URL y aplicarlo si existe.
+            // El tema por defecto ya está establecido en el tag <html>.
+            const themeFromUrl = getUrlParameter('theme');
+            if (themeFromUrl) {
+                document.documentElement.setAttribute('data-theme', themeFromUrl);
+            }
+            // Para cargar la web con un tema específico, usa la URL: index.html?theme=nombre_del_tema (ej: index.html?theme=blue)
+            <\/script>
+
+            <!-- Google Fonts and Icons -->
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+            <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+            />
+            <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            />
+            
+            <!-- External Stylesheet -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/geminiproai37-blip/adsdsdsds@main/reproductor-app-yami/style.css" />
+
+            <!-- Configuration and Libraries -->
+            <script defer>
+            window.contentConfig = ${escapedContentConfig};
+            window.languageServers = ${escapedLanguageServers};
+            window.downloadServers = ${escapedDownloadServers};
+            // IMPORTANT: Replace with your actual Google API Key.
+            // Be aware of the security implications of exposing this key in client-side code.
+            window.GOOGLE_API_KEY = "${GOOGLE_API_KEY}";
+            <\/script>
+            
+            <!-- Video Libraries -->
+            <script src="https://vjs.zencdn.net/8.10.0/video.min.js" defer><\/script>
+            <script src="https://cdn.jsdelivr.net/npm/hls.js@latest" defer><\/script>
+            
+            <!-- Application Logic -->
+            <script type="module" src="https://cdn.jsdelivr.net/gh/geminiproai37-blip/adsdsdsds@main/reproductor-app-yami/dom_builder.js" defer><\/script>
+            <script type="module" src="https://cdn.jsdelivr.net/gh/geminiproai37-blip/adsdsdsds@main/reproductor-app-yami/external_handler.js" defer><\/script>
+            <script type="module" src="https://cdn.jsdelivr.net/gh/geminiproai37-blip/adsdsdsds@main/reproductor-app-yami/continueWatchingModal.js" defer><\/script>
+            <script type="module" src="https://cdn.jsdelivr.net/gh/geminiproai37-blip/adsdsdsds@main/reproductor-app-yami/anime_loader.js" defer><\/script>
+            <script type="module" src="https://cdn.jsdelivr.net/gh/geminiproai37-blip/adsdsdsds@main/reproductor-app-yami/apps.js" defer><\/script>
+        </head>
+        <body class="bg-gray-900 text-white">
+            <div id="player-container"></div>
+            
+            <!-- Vertical menu container -->
+            <div id="vertical-menu-container" class="vertical-menu-container">
+            <!-- Menu items will be inserted here dynamically by dom_builder.js -->
+            </div>
+
+            <!-- Side menu buttons container -->
+            <div id="side-menu-buttons">
+            <!-- Buttons will be inserted here dynamically by dom_builder.js -->
+            </div>
+
+            <!-- Report Confirmation Modal -->
+            <div id="report-confirmation-modal" class="popup hidden">
+            <div class="popup-header">
+                <h3>Reporte Enviado</h3>
+                <button class="close-popup-btn">
+                <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-content report-confirmation-content">
+                <img
+                src="https://i.pinimg.com/originals/f2/1f/0a/f21f0a529006c607222141022020812f.gif"
+                alt="Reporte Enviado"
+                class="report-confirmation-gif"
+                />
+                <p>¡Gracias por tu reporte! Lo revisaremos pronto.</p>
+                <button id="report-confirmation-ok-btn" class="btn-primary">
+                Aceptar
+                </button>
+            </div>
+            </div>
+        </body>
+        </html>
+      `;
+
+      // Inyectar el contenido HTML en el documento principal
+      document.open();
+      document.write(indexHtmlContent);
+      document.close();
+    </script>
+  </body>
+</html>
